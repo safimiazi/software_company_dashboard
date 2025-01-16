@@ -2,7 +2,9 @@ import { Form, Input, Button } from "antd";
 import Container from "../../components/common/Container/Container";
 
 const Login = () => {
-  const onFinish = async (values: any) => {};
+  const onFinish = async (values: any) => {
+    console.log("value", values);
+  };
 
   return (
     <div className="py-20">
@@ -13,13 +15,13 @@ const Login = () => {
             <div className="relative h-44 w-full">
               {/* Clipped Background */}
               <div
-                className="absolute top-0 left-0 w-full h-full bg-black"
+                className="absolute top-0 left-0 w-full h-full bg-[#FF3C00]"
                 style={{
                   clipPath: "polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%)",
                 }}
               ></div>
               <div className="relative w-full h-full z-10 flex justify-center items-center">
-                <h4 className="text-orange-500 font-bold text-xl">Login</h4>
+                <h4 className=" font-bold text-white text-3xl">Login</h4>
               </div>
             </div>
             <Form
