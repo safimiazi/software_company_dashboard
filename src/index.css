@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.brand-color {
+    color: #FF3C00;
+  }
+  
