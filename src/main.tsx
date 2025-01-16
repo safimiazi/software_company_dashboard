@@ -2,9 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import AppRoutes from "./routes/AppRoutes.tsx";
+import { ConfigProvider } from "antd";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-      <AppRoutes/>
+    <ConfigProvider theme={{ token: { colorPrimary: '#FF3C00' } }}>
+      <AppRoutes />
+    </ConfigProvider>
   </StrictMode>
 );
