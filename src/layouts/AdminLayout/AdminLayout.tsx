@@ -8,15 +8,16 @@ interface AdminLayoutProps {
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex w-full">
       {/*sidebar  */}
-      <div>
         <Sidebar />
-      </div>
       {/* main */}
-      <div className="flex flex-1 flex-col">
+      <div className=" flex-1 flex flex-col overflow-auto">
         <Header />
-        <div className="flex-1 border">{children}</div>
+        {/* content */}
+        <div className="flex-1 ">
+        {children}
+        </div>
       </div>
     </div>
   );
