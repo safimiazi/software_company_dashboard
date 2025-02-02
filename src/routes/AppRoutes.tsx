@@ -1,11 +1,12 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import App from "../App";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout";
+import Login from "../pages/Login/Login";
 
 const AppRoutes = () => {
-  const data = true;
+  const data = false;
 
   return (
     <BrowserRouter>
@@ -33,7 +34,13 @@ const AppRoutes = () => {
           </Routes>
         </AdminLayout>
       ) : (
-        <Navigate replace to={"/login"} />
+        <Routes>
+        <Route
+          path="/login"
+          element={
+            <Login/>
+          }
+        /> </Routes>
       )}
     </BrowserRouter>
   );

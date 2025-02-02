@@ -2,7 +2,7 @@ import { Form, Input, Button } from "antd";
 import Container from "../../components/common/Container/Container";
 
 const Login = () => {
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: { email: string; password: string }) => {
     console.log("value", values);
   };
 
