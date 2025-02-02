@@ -1,12 +1,18 @@
-import { mainApi } from "../../MainApi"
+import mainApi from "../../MainApi"
 
 const authApiQuery = mainApi.injectEndpoints({
     endpoints: (build) => ({
-      example: build.query({
-        query: () => 'test',
+      getAdminData: build.query({
+        query: () => ({
+            url: "/admin/get_admin_data",
+            method: "GET"
+
+        }),
+        providesTags:["login_admin"],
+
       }),
     }),
     overrideExisting: false,
   })
   
-  export const { useExampleQuery } = authApiQuery
+  export const { useGetAdminDataQuery } = authApiQuery

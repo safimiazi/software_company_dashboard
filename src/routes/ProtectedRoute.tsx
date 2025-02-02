@@ -1,15 +1,18 @@
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-const isAuthenticated = () => {
-  return localStorage.getItem("authToken") ? false : true;
-};
+import { useGetAdminDataQuery } from "../redux/api/adminApi/authApi/AuthApi.query";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  if (!isAuthenticated()) {
-    return <Navigate to={"/login"} replace />;
+  const { data,isLoading } = useGetAdminDataQuery({});
+if(isLoading){
+  return <div>Loading</div>
+}
+ 
+  if (!data) {
+    return <Navigate to="/login" replace={true} />;
   }
 
-  return children;
+  return <div>{children}</div>;
 };
 
 export default ProtectedRoute;

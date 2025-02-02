@@ -11,7 +11,7 @@ const Login = () => {
    try {
     const response = await adminLogin(values).unwrap();
     if (response.success) {
-      navigate("/dashboard"); 
+      navigate("/admin/dashboard"); 
     } 
    } catch (error) {
     console.log(error)
