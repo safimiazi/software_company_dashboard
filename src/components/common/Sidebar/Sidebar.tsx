@@ -58,11 +58,12 @@ const Sidebar = () => {
     >
       <div className="w-full h-full relative border ">
         {/* Close Button for Mobile */}
+        
         <div
           onClick={() => dispatch(sidebarToggle())}
           className="absolute lg:hidden p-2 bg-gray-300 text-gray-800 text-2xl rounded-full right-2 top-2 cursor-pointer hover:bg-gray-400"
         >
-          
+
           <MdOutlineCancelPresentation />
         </div>
 
