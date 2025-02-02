@@ -4,18 +4,18 @@ import { useAdminLoginMutation } from "../../redux/api/adminApi/authApi/AuthApi.
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [ adminLogin, {isLoading}] = useAdminLoginMutation()
+  const [adminLogin, { isLoading }] = useAdminLoginMutation();
   const navigate = useNavigate();
 
   const onFinish = async (values: { email: string; password: string }) => {
-   try {
-    const response = await adminLogin(values).unwrap();
-    if (response.success) {
-      navigate("/admin/dashboard"); 
-    } 
-   } catch (error) {
-    console.log(error)
-   }   
+    try {
+      const response = await adminLogin(values).unwrap();
+      if (response.success) {
+        navigate("/admin/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
