@@ -50,17 +50,17 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`lg:static fixed left-0 top-0 bg-white text-gray-800 w-64 h-screen  overflow-y-auto lg:translate-x-0 z-40 shadow-lg ${
+      className={`lg:sticky fixed left-0 top-0 bg-white text-gray-800 w-64 h-screen  overflow-y-auto lg:translate-x-0 z-40 shadow-lg ${
         open
           ? "translate-x-0 transition-transform duration-500"
           : "-translate-x-96 transition-transform duration-500"
       }`}
     >
-      <div className="w-full h-full relative border">
+      <div className="w-full h-full relative border ">
         {/* Close Button for Mobile */}
         <div
           onClick={() => dispatch(sidebarToggle())}
-          className="absolute lg:hidden p-2 bg-gray-300 text-gray-800 text-2xl rounded-full -right-7 top-4 cursor-pointer hover:bg-gray-400"
+          className="absolute lg:hidden p-2 bg-gray-300 text-gray-800 text-2xl rounded-full right-2 top-2 cursor-pointer hover:bg-gray-400"
         >
           <MdOutlineCancelPresentation />
         </div>
