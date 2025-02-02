@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./slices/counterSlice";
 import  sidebarReducer  from "./slices/sidebarSlice";
+import { mainApi } from "./api/MainApi";
 
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
-        sidebar: sidebarReducer
-    }
+        sidebar: sidebarReducer,
+        [mainApi.reducerPath]: mainApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(mainApi.middleware),
 })
 
 

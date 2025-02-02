@@ -8,10 +8,14 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values: { email: string; password: string }) => {
+   try {
     const response = await adminLogin(values).unwrap();
     if (response.success) {
       navigate("/dashboard"); 
-    }    
+    } 
+   } catch (error) {
+    console.log(error)
+   }   
   };
 
   return (
