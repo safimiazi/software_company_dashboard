@@ -1,9 +1,17 @@
 import { Form, Input, Button } from "antd";
 import Container from "../../components/common/Container/Container";
+import { useAdminLoginMutation } from "../../redux/api/adminApi/authApi/AuthApi.mutation";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [ adminLogin, {isLoading}] = useAdminLoginMutation()
+  const navigate = useNavigate();
+
   const onFinish = async (values: { email: string; password: string }) => {
-    console.log("value", values);
+    const response = await adminLogin(values).unwrap();
+    if (response.success) {
+      navigate("/dashboard"); 
+    }    
   };
 
   return (
@@ -64,6 +72,7 @@ const Login = () => {
               <Form.Item className="text-center">
                 <Button
                   size="large"
+                  loading={isLoading}
                   type="primary"
                   htmlType="submit"
                   className=" w-full text-xl font-semibold"
