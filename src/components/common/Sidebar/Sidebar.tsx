@@ -73,11 +73,11 @@ const Sidebar = () => {
 
         {/* Navigation Links */}
         <nav className="mt-6 flex flex-col h-4/5 ">
-         <div className="flex-grow">
-         <Sider width={"100%"}>
-            <Menu items={sidebarItems} mode="inline" />
-          </Sider>
-         </div>
+          <div className="flex-grow">
+            <Sider width={"100%"}>
+              <Menu items={sidebarItems} mode="inline" />
+            </Sider>
+          </div>
           <ul className="space-y-2 px-4 flex-none">
             <li onClick={() => handleLogout()}>
               <div className="flex items-center gap-4 px-6 py-3 text-white bg-red-500 hover:bg-red-700 transition-colors duration-200 rounded-md">
