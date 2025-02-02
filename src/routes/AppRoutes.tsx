@@ -21,7 +21,9 @@ const AppRoutes = () => {
               }
             />
             <Route
-              path="/dashboard"
+              index={true}
+              path="dashboard"
+
               element={
                 <ProtectedRoute>
                   <Dashboard />

@@ -15,7 +15,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       <div className=" flex-1 flex flex-col overflow-auto">
         <Header />
         {/* content */}
-        <div className="flex-1 ">
+        <div className="flex-1 p-6">
         {children}
         </div>
       </div>
