@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Form, Input, Button,  Modal, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
