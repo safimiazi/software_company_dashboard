@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import ProtectedRoute from "./ProtectedRoute";
-import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
+import { routeGenerator } from "../utils/routeGenerator";
+import { adminPaths } from "./admin.routes";
 
 const router = createBrowserRouter([
   {
@@ -16,16 +17,7 @@ const router = createBrowserRouter([
         <App />
       </ProtectedRoute>
     ),
-    children: [
-      {
-        path: "/admin/dashboard",
-        element: (
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        ),
-      },
-    ],
+    children:routeGenerator(adminPaths)
   },
   {
     path: "/login",

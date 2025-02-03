@@ -1,7 +1,7 @@
 import { Form, Input, Button } from "antd";
 import Container from "../../components/common/Container/Container";
-import { useAdminLoginMutation } from "../../redux/api/adminApi/authApi/AuthApi.mutation";
 import { useNavigate } from "react-router-dom";
+import { useAdminLoginMutation } from "../../redux/api/adminApi/authApi/AuthApi.mutation";
 
 const Login = () => {
   const [adminLogin, { isLoading }] = useAdminLoginMutation();
