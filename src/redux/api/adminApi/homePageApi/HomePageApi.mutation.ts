@@ -10,18 +10,16 @@ const homePageApiMutation = mainApi.injectEndpoints({
           body: data,
         };
       },
-      invalidatesTags: ["login_admin"],
     }),
-    adminLogout: build.mutation({
+    homeBannerPut: build.mutation({
       query: () => ({
-        url: "/admin/logout",
-        method: "POST",
+        url: "/admin/put_home_banner_data",
+        method: "PUT",
       }),
-      invalidatesTags: ["login_admin"],
     }),
   }),
   overrideExisting: false,
 });
 
-export const { useAdminLoginMutation, useAdminLogoutMutation } =
+export const { useHomeBannerPostMutation, useHomeBannerPutMutation } =
   homePageApiMutation;
