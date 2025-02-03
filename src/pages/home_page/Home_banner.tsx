@@ -6,36 +6,34 @@ import { UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
 import { Link } from "react-router-dom";
 import { useGetHomePageBannerDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
+import { useHomeBannerPostMutation, useHomeBannerPutMutation } from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
 
 const Home_banner = () => {
+    const [pagination, setPagination] = useState({
+        pageIndex: 0,
+        pageSize: 10,
+      });
+      const [globalFilter, setGlobalFilter] = useState("");
+      const { data: bannerData } = useGetHomePageBannerDataQuery({
+        pagination,
+        search: globalFilter,
+      });
     const isDarkMode = false;
-  const [banners, setBanners] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingBanner, setEditingBanner] = useState(null);
   const [form] = Form.useForm();
+const [homeBannerPost, {isLoading}] = useHomeBannerPostMutation();
+const [homeBannerPut, {isLoading}] = useHomeBannerPutMutation();
 
-  // Fetch banners from API
-  useEffect(() => {
-    fetchBanners();
-  }, []);
-
-  const fetchBanners = async () => {
-    try {
-      const { data } = await axios.get("/api/banners");
-      setBanners(data);
-    } catch (error) {
-      message.error("Failed to fetch banners.");
-    }
-  };
 
   const handleAddOrUpdate = async (values) => {
     try {
       if (editingBanner) {
-        await axios.put(`/api/banners/${editingBanner.id}`, values);
-        message.success("Banner updated successfully!");
+  
+        const res = await homeBannerPut({values, editingBanner.id})
+
       } else {
-        await axios.post("/api/banners", values);
-        message.success("Banner added successfully!");
+          const res  = await homeBannerPost(values)
       }
       fetchBanners();
       setIsModalOpen(false);
@@ -62,15 +60,7 @@ const Home_banner = () => {
     }
   };
 
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-  const [globalFilter, setGlobalFilter] = useState("");
-  const { data: bannerData } = useGetHomePageBannerDataQuery({
-    pagination,
-    search: globalFilter,
-  });
+
 
   const customColumns = [
     {
