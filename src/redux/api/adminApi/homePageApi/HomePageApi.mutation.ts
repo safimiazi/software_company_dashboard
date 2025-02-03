@@ -2,7 +2,7 @@ import mainApi from "../../MainApi";
 
 const homePageApiMutation = mainApi.injectEndpoints({
   endpoints: (build) => ({
-    homeBannerAdd: build.mutation({
+    homeBannerPost: build.mutation({
       query: (data) => {
         return {
           url: "/admin/post_home_banner_data",
