@@ -2,7 +2,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState } from "react";
-import { Form, Input, Button, Modal, Upload, message } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Modal,
+  Upload,
+  message,
+  notification,
+} from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
 import { useGetHomePageBannerDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
@@ -35,17 +43,32 @@ const Home_banner = () => {
 
   const handleAddOrUpdate = async (values: any) => {
     try {
+      let res;
       if (editingBanner) {
-        const res = await homeBannerPut({ values, id: editingBanner.id });
+        res = await homeBannerPut({ values, id: editingBanner.id });
       } else {
-        const res = await homeBannerPost(values);
+        res = await homeBannerPost(values);
+      }
+      if (res.data.success) {
+        notification.success({
+          message: res?.data?.message || "Success",
+          placement: "topRight",
+        });
+      } else{
+        notification.error({
+          message: (res.error as any)?.data?.message || "Error",
+          placement: "topRight",
+        });
       }
       refetch();
       setIsModalOpen(false);
       setEditingBanner(null);
       form.resetFields();
     } catch (error) {
-      message.error("Failed to save banner.");
+      notification.success({
+        message: "Error",
+        placement: "topRight",
+      });
     }
   };
 
