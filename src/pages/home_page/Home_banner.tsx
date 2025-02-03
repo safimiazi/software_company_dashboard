@@ -1,41 +1,46 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState } from "react";
-import { Form, Input, Button,  Modal, Upload, message } from "antd";
+import { Form, Input, Button, Modal, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
-import { Link } from "react-router-dom";
 import { useGetHomePageBannerDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
-import { useHomeBannerPostMutation, useHomeBannerPutMutation } from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
+import {
+  useHomeBannerDeleteMutation,
+  useHomeBannerPostMutation,
+  useHomeBannerPutMutation,
+} from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
 
 const Home_banner = () => {
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 10,
-      });
-      const [globalFilter, setGlobalFilter] = useState("");
-      const { data: bannerData } = useGetHomePageBannerDataQuery({
-        pagination,
-        search: globalFilter,
-      });
-    const isDarkMode = false;
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const [globalFilter, setGlobalFilter] = useState("");
+  const { data: bannerData, refetch } = useGetHomePageBannerDataQuery({
+    pagination,
+    search: globalFilter,
+  });
+  const isDarkMode = false;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingBanner, setEditingBanner] = useState(null);
+  const [editingBanner, setEditingBanner] = useState<any | null>(null);
   const [form] = Form.useForm();
-const [homeBannerPost, {isLoading}] = useHomeBannerPostMutation();
-const [homeBannerPut, {isLoading}] = useHomeBannerPutMutation();
+  const [homeBannerPost, { isLoading: isPostLoading }] =
+    useHomeBannerPostMutation();
+  const [homeBannerPut, { isLoading: isEditLoading }] =
+    useHomeBannerPutMutation();
+  const [homeBannerDelete, { isLoading: isDeleteLoading }] =
+    useHomeBannerDeleteMutation();
 
-
-  const handleAddOrUpdate = async (values) => {
+  const handleAddOrUpdate = async (values: any) => {
     try {
       if (editingBanner) {
-  
-        const res = await homeBannerPut({values, editingBanner.id})
-
+        const res = await homeBannerPut({ values, id: editingBanner.id });
       } else {
-          const res  = await homeBannerPost(values)
+        const res = await homeBannerPost(values);
       }
-      fetchBanners();
+      refetch();
       setIsModalOpen(false);
       setEditingBanner(null);
       form.resetFields();
@@ -44,23 +49,20 @@ const [homeBannerPut, {isLoading}] = useHomeBannerPutMutation();
     }
   };
 
-  const handleEdit = (record) => {
+  const handleEdit = (record: any) => {
     setEditingBanner(record);
     form.setFieldsValue(record);
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (id : string) => {
+  const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`/api/banners/${id}`);
-      message.success("Banner deleted successfully!");
-      fetchBanners();
+      const res = await homeBannerDelete({ id });
+      refetch();
     } catch (error) {
       message.error("Failed to delete banner.");
     }
   };
-
-
 
   const customColumns = [
     {
@@ -114,8 +116,6 @@ const [homeBannerPut, {isLoading}] = useHomeBannerPutMutation();
       ),
     },
 
- 
-
     {
       header: "ACTION",
       size: 50,
@@ -124,20 +124,16 @@ const [homeBannerPut, {isLoading}] = useHomeBannerPutMutation();
       },
       Cell: ({ row }: any) => (
         <div className="flex justify-start gap-2">
-          <Link to={`/agent/dashboard/loi/list/loi_details?id=${row?.id}`}>
-            <button className="bg-[#ef4444] py-1 px-2 rounded-md text-white">
-              Details
-            </button>
-          </Link>
-          {row.status === "pending" ? (
-            <Link to={`/agent/dashboard/loi/list/loi_edit?loi_id=${row?.id}`}>
-              <button className="bg-teal-600 py-1 px-2 rounded-md text-white">
-                Edit
-              </button>
-            </Link>
-          ) : (
-            ""
-          )}
+          <button
+            onClick={() => handleDelete(row.id)}
+            className="bg-[#ef4444] py-1 px-2 rounded-md text-white"
+          >
+            Delete
+          </button>
+
+          <Button loading={isDeleteLoading} onClick={() => handleEdit(row.id)}>
+            Edit
+          </Button>
         </div>
       ),
     },
@@ -149,16 +145,16 @@ const [homeBannerPut, {isLoading}] = useHomeBannerPutMutation();
         Add Banner
       </Button>
       <CustomTable
-            columns={customColumns}
-            data={bannerData?.data || []}
-            pagination={pagination}
-            onPaginationChange={(pageIndex, pageSize) =>
-              setPagination({ pageIndex, pageSize })
-            }
-            globalFilter={globalFilter}
-            onFilterChange={setGlobalFilter}
-            totalRecordCount={bannerData?.count || 0}
-          />
+        columns={customColumns}
+        data={bannerData?.data || []}
+        pagination={pagination}
+        onPaginationChange={(pageIndex, pageSize) =>
+          setPagination({ pageIndex, pageSize })
+        }
+        globalFilter={globalFilter}
+        onFilterChange={setGlobalFilter}
+        totalRecordCount={bannerData?.count || 0}
+      />
       <Modal
         title={editingBanner ? "Edit Banner" : "Add Banner"}
         open={isModalOpen}
@@ -170,10 +166,18 @@ const [homeBannerPut, {isLoading}] = useHomeBannerPutMutation();
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleAddOrUpdate}>
-          <Form.Item name="title" label="Title" rules={[{ required: true, message: "Please enter title" }]}>
+          <Form.Item
+            name="title"
+            label="Title"
+            rules={[{ required: true, message: "Please enter title" }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="description" label="Description" rules={[{ required: true, message: "Please enter description" }]}>
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[{ required: true, message: "Please enter description" }]}
+          >
             <Input.TextArea rows={2} />
           </Form.Item>
           <Form.Item name="ctaText" label="CTA Button Text">
@@ -183,16 +187,16 @@ const [homeBannerPut, {isLoading}] = useHomeBannerPutMutation();
             <Input />
           </Form.Item>
           <Form.Item name="image" label="Image">
-            <Upload
-              listType="picture"
-              beforeUpload={() => false}
-              maxCount={1}
-            >
+            <Upload listType="picture" beforeUpload={() => false} maxCount={1}>
               <Button icon={<UploadOutlined />}>Upload Image</Button>
             </Upload>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button
+              loading={editingBanner ? isEditLoading : isPostLoading}
+              type="primary"
+              htmlType="submit"
+            >
               {editingBanner ? "Update" : "Add"}
             </Button>
           </Form.Item>

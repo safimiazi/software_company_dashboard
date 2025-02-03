@@ -19,9 +19,16 @@ const homePageApiMutation = mainApi.injectEndpoints({
         params: {id}
       }),
     }),
+    homeBannerDelete: build.mutation({
+      query: ({id}) => ({
+        url: "/admin/delete_home_banner_data",
+        method: "DELETE",
+        params: {id}
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useHomeBannerPostMutation, useHomeBannerPutMutation } =
+export const { useHomeBannerPostMutation, useHomeBannerPutMutation, useHomeBannerDeleteMutation } =
   homePageApiMutation;
