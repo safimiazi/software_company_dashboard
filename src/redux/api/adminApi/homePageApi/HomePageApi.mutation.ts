@@ -4,7 +4,6 @@ const homePageApiMutation = mainApi.injectEndpoints({
   endpoints: (build) => ({
     adminLogin: build.mutation({
       query: (loginData) => {
-        console.log("login", loginData);
         return {
           url: "/admin/login",
           method: "POST",

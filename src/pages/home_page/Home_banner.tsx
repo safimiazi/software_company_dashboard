@@ -5,6 +5,7 @@ import { Form, Input, Button,  Modal, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
 import { Link } from "react-router-dom";
+import { useGetHomePageBannerDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
 
 const Home_banner = () => {
     const isDarkMode = false;
@@ -66,7 +67,7 @@ const Home_banner = () => {
     pageSize: 10,
   });
   const [globalFilter, setGlobalFilter] = useState("");
-  const { data: loiData } = useGetAllLoiQuery({
+  const { data: bannerData } = useGetHomePageBannerDataQuery({
     pagination,
     search: globalFilter,
   });
@@ -159,14 +160,14 @@ const Home_banner = () => {
       </Button>
       <CustomTable
             columns={customColumns}
-            data={loiData?.data || []}
+            data={bannerData?.data || []}
             pagination={pagination}
             onPaginationChange={(pageIndex, pageSize) =>
               setPagination({ pageIndex, pageSize })
             }
             globalFilter={globalFilter}
             onFilterChange={setGlobalFilter}
-            totalRecordCount={loiData?.count || 0}
+            totalRecordCount={bannerData?.count || 0}
           />
       <Modal
         title={editingBanner ? "Edit Banner" : "Add Banner"}
