@@ -2,12 +2,12 @@ import mainApi from "../../MainApi";
 
 const homePageApiMutation = mainApi.injectEndpoints({
   endpoints: (build) => ({
-    adminLogin: build.mutation({
-      query: (loginData) => {
+    homeBannerAdd: build.mutation({
+      query: (data) => {
         return {
-          url: "/admin/login",
+          url: "/admin/post_home_banner_data",
           method: "POST",
-          body: loginData,
+          body: data,
         };
       },
       invalidatesTags: ["login_admin"],
