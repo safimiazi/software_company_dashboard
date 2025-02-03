@@ -12,9 +12,11 @@ const homePageApiMutation = mainApi.injectEndpoints({
       },
     }),
     homeBannerPut: build.mutation({
-      query: () => ({
+      query: ({data, id}) => ({
         url: "/admin/put_home_banner_data",
         method: "PUT",
+        body: data,
+        params: {id}
       }),
     }),
   }),
