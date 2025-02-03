@@ -43,30 +43,49 @@ const Home_banner = () => {
 
   const handleAddOrUpdate = async (values: any) => {
     try {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("ctaText", values.ctaText || "");
+      formData.append("ctaLink", values.ctaLink || "");
+
+      // Image Upload Handling
+      if (values.image && values.image.file.originFileObj) {
+        formData.append("image", values.image.file.originFileObj);
+      }
+
       let res;
       if (editingBanner) {
-        res = await homeBannerPut({ values, id: editingBanner.id });
+        res = await homeBannerPut({
+          data: formData,
+          id: editingBanner.id,
+        }).unwrap();
       } else {
-        res = await homeBannerPost(values);
+        res = await homeBannerPost(formData).unwrap();
       }
-      if (res.data.success) {
+
+      if (res?.data?.success) {
         notification.success({
           message: res?.data?.message || "Success",
           placement: "topRight",
         });
       } else {
         notification.error({
-          message: (res.error as any)?.data?.message || "Error",
+          message:
+            res?.data?.message ||
+            res?.data?.errorSource?.[0]?.message ||
+            "An unknown error occurred!",
           placement: "topRight",
         });
       }
+
       refetch();
       setIsModalOpen(false);
       setEditingBanner(null);
       form.resetFields();
-    } catch (error) {
-      notification.success({
-        message: "Error",
+    } catch (error: any) {
+      notification.error({
+        message: error.data.message || "Something went wrong!",
         placement: "topRight",
       });
     }
@@ -210,7 +229,22 @@ const Home_banner = () => {
             <Input />
           </Form.Item>
           <Form.Item name="image" label="Image">
-            <Upload listType="picture" beforeUpload={() => false} maxCount={1}>
+            <Upload
+              listType="picture"
+              beforeUpload={(file) => {
+                const isValidType =
+                  file.type === "image/png" || file.type === "image/jpeg";
+                if (!isValidType) {
+                  notification.error({
+                    message: "You can only upload PNG or JPG files!",
+                    placement: "topRight",
+                  });
+                }
+                return isValidType || Upload.LIST_IGNORE;
+              }}
+              maxCount={1}
+            >
+              {" "}
               <Button icon={<UploadOutlined />}>Upload Image</Button>
             </Upload>
           </Form.Item>
