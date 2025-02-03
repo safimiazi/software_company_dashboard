@@ -54,7 +54,7 @@ const Home_banner = () => {
           message: res?.data?.message || "Success",
           placement: "topRight",
         });
-      } else{
+      } else {
         notification.error({
           message: (res.error as any)?.data?.message || "Error",
           placement: "topRight",
