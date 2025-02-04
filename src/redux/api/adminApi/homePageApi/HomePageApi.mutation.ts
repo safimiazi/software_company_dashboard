@@ -5,7 +5,7 @@ const homePageApiMutation = mainApi.injectEndpoints({
     homeBannerPost: build.mutation({
       query: (data) => {
         return {
-          url: "/admin/post_home_banner_data",
+          url: "/home_banner/post_home_banner_data",
           method: "POST",
           body: data,
         };
@@ -13,7 +13,7 @@ const homePageApiMutation = mainApi.injectEndpoints({
     }),
     homeBannerPut: build.mutation({
       query: ({data, id}) => ({
-        url: "/admin/put_home_banner_data",
+        url: "/home_banner/put_home_banner_data",
         method: "PUT",
         body: data,
         params: {id}
@@ -21,7 +21,7 @@ const homePageApiMutation = mainApi.injectEndpoints({
     }),
     homeBannerDelete: build.mutation({
       query: ({id}) => ({
-        url: "/admin/delete_home_banner_data",
+        url: "/home_banner/delete_home_banner_data",
         method: "DELETE",
         params: {id}
       }),

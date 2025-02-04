@@ -7,7 +7,7 @@ const homePageApiQuery = mainApi.injectEndpoints({
     //   Home Page Banner
       getHomePageBannerData: build.query({
         query: () => ({
-            url: "/admin/get_home_page_banner_data",
+            url: "/home_banner/get_home_page_banner_data",
             method: "GET"
 
         }),
