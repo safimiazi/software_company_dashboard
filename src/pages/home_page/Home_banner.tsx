@@ -108,47 +108,53 @@ const Home_banner = () => {
 
   const customColumns = [
     {
-      header: "AGENCY INFO",
+      header: "TITLE",
       Cell: ({ row }: any) => (
         <div>
           <div className="flex flex-col gap-1 text-sm">
             <p>
-              <span className="font-semibold">Name:</span>{" "}
-              <span className="capitalize">{row.agency.name}</span>
-            </p>
-            <p>
-              <span className="font-semibold">Email:</span>{" "}
-              <span className="capitalize">{row.agency.email}</span>
-            </p>
-            <p>
-              <span className="font-semibold">Address:</span>{" "}
-              {row.agency.address}
-            </p>
-            <p>
-              <span className="font-semibold">Phone:</span> {row.agency.phone}
-            </p>
-            <p>
-              <span className="font-semibold">Status:</span> {row.agency.status}
+              <span className="capitalize">{row.title}</span>
             </p>
           </div>
         </div>
       ),
     },
     {
-      header: "DATE",
+      header: "CTA TEXT",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
           <p>
-            <span className="font-semibold">Submitted:</span>{" "}
-            {new Date(row.createdAt).toLocaleDateString("en", {
-              month: "short",
-              day: "2-digit",
-              year: "numeric",
-            })}
+            {row.ctaText}
           </p>
+        </div>
+      ),
+    },
+    {
+      header: "CTA LINK",
+      Cell: ({ row }: any) => (
+        <div className="space-y-1 text-sm">
           <p>
-            <span className="font-semibold">Departure:</span>{" "}
-            {new Date(row.departure_date).toLocaleDateString("en", {
+            {row.ctaLink}
+          </p>
+        </div>
+      ),
+    },
+    {
+      header: "DESCRIPTION",
+      Cell: ({ row }: any) => (
+        <div className="space-y-1 text-sm">
+          <p>
+            {row.description}
+          </p>
+        </div>
+      ),
+    },
+    {
+      header: "CREATED DATE",
+      Cell: ({ row }: any) => (
+        <div className="space-y-1 text-sm">
+          <p>
+            {new Date(row.createdAt).toLocaleDateString("en", {
               month: "short",
               day: "2-digit",
               year: "numeric",
