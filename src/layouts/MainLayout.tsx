@@ -6,17 +6,16 @@ import OutletWrapper from "../utils/OutletWrapper";
 const MainLayout = () => {
   return (
     <div className="flex w-full">
-    <Sidebar />
-    <div className="flex-1 min-w-0">
-      <Header />
-      <div className="overflow-x-auto">
-        <OutletWrapper>
-          <Outlet />
-        </OutletWrapper>
+      <Sidebar />
+      <div className="flex-1 min-w-0">
+        <Header />
+        <div className="overflow-x-auto">
+          <OutletWrapper>
+            <Outlet />
+          </OutletWrapper>
+        </div>
       </div>
     </div>
-  </div>
-  
   );
 };
 
