@@ -6,4 +6,20 @@
 .brand-color {
     color: #FF3C00;
   }
-  
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  scroll-behavior: smooth;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #FF3C00; 
+}
