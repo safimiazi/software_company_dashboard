@@ -192,7 +192,7 @@ const Home_banner = () => {
       <Button type="primary" onClick={() => setIsModalOpen(true)}>
         Add Banner
       </Button>
-      <CustomTable
+     <CustomTable
         columns={customColumns}
         data={bannerData?.data || []}
         pagination={pagination}

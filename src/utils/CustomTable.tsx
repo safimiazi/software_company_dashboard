@@ -30,7 +30,7 @@ const CustomTable = ({
   };
 
   return (
-    <div className={`p-4 ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+    <div className={`py-4 ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
       {/* Global Filter */}
       <div className="mb-4 flex justify-between items-center">
         <input
@@ -90,7 +90,7 @@ const CustomTable = ({
                       className={`border p-2 ${
                         isDarkMode ? "border-gray-700" : "border-gray-300"
                       }`}
-                      style={{maxWidth: "250px", minWidth: '200px'}}
+                      style={{maxWidth: "250px", minWidth: '150px'}}
                     >
                       {col.Cell ? col.Cell({ row }) : row[col.accessorKey]}
                     </td>

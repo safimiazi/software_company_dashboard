@@ -5,20 +5,18 @@ import OutletWrapper from "../utils/OutletWrapper";
 
 const MainLayout = () => {
   return (
-    <div className="flex w-full ">
-      {/* Sidebar */}
-      <Sidebar />
-      {/* Main content */}
-      <div className="flex-1">
-        <Header />
-        {/* Scrollable content */}
-        <div className=" overflow-auto">
-          <OutletWrapper>
+    <div className="flex w-full">
+    <Sidebar />
+    <div className="flex-1 min-w-0">
+      <Header />
+      <div className="overflow-x-auto">
+        <OutletWrapper>
           <Outlet />
-          </OutletWrapper>
-        </div>
+        </OutletWrapper>
       </div>
     </div>
+  </div>
+  
   );
 };
 
