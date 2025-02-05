@@ -10,6 +10,7 @@ import {
   Upload,
   message,
   notification,
+  Image,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
@@ -19,6 +20,7 @@ import {
   useHomeBannerPostMutation,
   useHomeBannerPutMutation,
 } from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
+import { home_banner_image_api } from "../../Proxy";
 
 const Home_banner = () => {
   const [pagination, setPagination] = useState({
@@ -63,21 +65,10 @@ const Home_banner = () => {
       } else {
         res = await homeBannerPost(formData).unwrap();
       }
-
-      if (res?.data?.success) {
-        notification.success({
-          message: res?.data?.message || "Success",
-          placement: "topRight",
-        });
-      } else {
-        notification.error({
-          message:
-            res?.data?.message ||
-            res?.data?.errorSource?.[0]?.message ||
-            "An unknown error occurred!",
-          placement: "topRight",
-        });
-      }
+      notification.success({
+        message: res?.message,
+        placement: "topRight",
+      });
 
       refetch();
       setIsModalOpen(false);
@@ -108,6 +99,14 @@ const Home_banner = () => {
 
   const customColumns = [
     {
+      header: "IMAGE",
+      Cell: ({ row }: any) => (
+        <div>
+          <Image src={`${home_banner_image_api}/${row._id}`} />
+        </div>
+      ),
+    },
+    {
       header: "TITLE",
       Cell: ({ row }: any) => (
         <div>
@@ -123,9 +122,7 @@ const Home_banner = () => {
       header: "CTA TEXT",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p>
-            {row.ctaText}
-          </p>
+          <p>{row.ctaText}</p>
         </div>
       ),
     },
@@ -133,9 +130,7 @@ const Home_banner = () => {
       header: "CTA LINK",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p>
-            {row.ctaLink}
-          </p>
+          <p>{row.ctaLink}</p>
         </div>
       ),
     },
@@ -143,9 +138,7 @@ const Home_banner = () => {
       header: "DESCRIPTION",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p>
-            {row.description}
-          </p>
+          <p>{row.description}</p>
         </div>
       ),
     },
@@ -192,7 +185,7 @@ const Home_banner = () => {
       <Button type="primary" onClick={() => setIsModalOpen(true)}>
         Add Banner
       </Button>
-     <CustomTable
+      <CustomTable
         columns={customColumns}
         data={bannerData?.data || []}
         pagination={pagination}
