@@ -58,8 +58,8 @@ useEffect(()=> {
       formData.append("ctaLink", values.ctaLink || "");
 
       // Image Upload Handling
-      if (values.image && values.image.file.originFileObj) {
-        formData.append("image", values.image.file.originFileObj);
+      if (values.image && values.image.file?.originFileObj) {
+        formData.append("image", values.image.file?.originFileObj);
       }
 
       let res;
@@ -109,7 +109,8 @@ useEffect(()=> {
       Cell: ({ row }: any) => (
         <div className="w-20 h-20">
           <Image
-            height={"100%"}
+  key={row._id + Date.now()} // Force re-render
+  height={"100%"}
             width={"100%"}
             src={`${home_banner_image_api}/${row._id}`}
           />
