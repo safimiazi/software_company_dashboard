@@ -89,10 +89,9 @@ useEffect(()=> {
   };
 
   const handleEdit = (record: any) => {
-    console.log("data", record)
-    // setEditingBanner(record);
-    // form.setFieldsValue(record);
-    // setIsModalOpen(true);
+    setEditingBanner(record);
+    form.setFieldsValue(record);
+    setIsModalOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -183,7 +182,7 @@ useEffect(()=> {
             Delete
           </button>
 
-          <Button loading={isDeleteLoading} onClick={() => handleEdit(row._id)}>
+          <Button loading={isDeleteLoading} onClick={() => handleEdit(row)}>
             Edit
           </Button>
         </div>
@@ -253,6 +252,18 @@ useEffect(()=> {
                 return isValidType || Upload.LIST_IGNORE;
               }}
               maxCount={1}
+              defaultFileList={
+        editingBanner?.image
+          ? [
+              {
+                uid: "-1",
+                name: "existing_image.jpg",
+                status: "done",
+                url: `${home_banner_image_api}/${editingBanner._id}`, // Adjust URL
+              },
+            ]
+          : []
+      }
             >
               {" "}
               <Button icon={<UploadOutlined />}>Upload Image</Button>
