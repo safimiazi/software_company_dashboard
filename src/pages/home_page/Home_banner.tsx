@@ -66,7 +66,7 @@ useEffect(()=> {
       if (editingBanner) {
         res = await homeBannerPut({
           data: formData,
-          id: editingBanner.id,
+          id: editingBanner._id,
         }).unwrap();
       } else {
         res = await homeBannerPost(formData).unwrap();
