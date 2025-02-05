@@ -76,7 +76,7 @@ const Home_banner = () => {
       form.resetFields();
     } catch (error: any) {
       notification.error({
-        message: error.data.message || "Something went wrong!",
+        message: error?.message || "Something went wrong!",
         placement: "topRight",
       });
     }
