@@ -20,9 +20,8 @@ const homePageApiMutation = mainApi.injectEndpoints({
     }),
     homeBannerDelete: build.mutation({
       query: ({id}) => ({
-        url: "/home_banner/delete_home_banner_data",
+        url: `/home_banner/delete_home_banner_data/${id}`,
         method: "DELETE",
-        params: {id}
       }),
     }),
   }),

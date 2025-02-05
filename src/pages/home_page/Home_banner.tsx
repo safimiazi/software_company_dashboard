@@ -11,8 +11,9 @@ import {
   message,
   notification,
   Image,
+  Popconfirm,
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
 import { useGetHomePageBannerDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
 import {
@@ -101,7 +102,9 @@ const Home_banner = () => {
         message: res?.message,
         placement: "topRight",
       });
-      refetch();
+      setTimeout(() => {
+        refetch();
+      }, 500);
     } catch (error: any) {
       notification.error({
         message: error?.message || "Something went wrong!",
@@ -182,12 +185,18 @@ const Home_banner = () => {
       },
       Cell: ({ row }: any) => (
         <div className="flex justify-start gap-2">
-          <button
-            onClick={() => handleDelete(row._id)}
-            className="bg-[#ef4444] py-1 px-2 rounded-md text-white"
+          <Popconfirm
+            title="Are you sure you want to delete this banner?"
+            description="This action cannot be undone."
+            onConfirm={() => handleDelete(row._id)} // Executes delete on confirm
+            okText="Yes, Delete"
+            cancelText="Cancel"
+            okButtonProps={{ danger: true }}
           >
-            Delete
-          </button>
+            <Button type="primary" danger icon={<DeleteOutlined />}>
+              Delete
+            </Button>
+          </Popconfirm>
 
           <Button loading={isDeleteLoading} onClick={() => handleEdit(row)}>
             Edit
