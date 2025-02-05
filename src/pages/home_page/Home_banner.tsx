@@ -96,10 +96,17 @@ const Home_banner = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await homeBannerDelete({ id });
+      const res = await homeBannerDelete({ id }).unwrap();
+      notification.success({
+        message: res?.message,
+        placement: "topRight",
+      });
       refetch();
-    } catch (error) {
-      message.error("Failed to delete banner.");
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something went wrong!",
+        placement: "topRight",
+      });
     }
   };
 
