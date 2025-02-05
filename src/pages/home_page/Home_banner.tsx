@@ -89,9 +89,10 @@ useEffect(()=> {
   };
 
   const handleEdit = (record: any) => {
-    setEditingBanner(record);
-    form.setFieldsValue(record);
-    setIsModalOpen(true);
+    console.log("data", record)
+    // setEditingBanner(record);
+    // form.setFieldsValue(record);
+    // setIsModalOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -176,13 +177,13 @@ useEffect(()=> {
       Cell: ({ row }: any) => (
         <div className="flex justify-start gap-2">
           <button
-            onClick={() => handleDelete(row.id)}
+            onClick={() => handleDelete(row._id)}
             className="bg-[#ef4444] py-1 px-2 rounded-md text-white"
           >
             Delete
           </button>
 
-          <Button loading={isDeleteLoading} onClick={() => handleEdit(row.id)}>
+          <Button loading={isDeleteLoading} onClick={() => handleEdit(row._id)}>
             Edit
           </Button>
         </div>
