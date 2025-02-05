@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Form,
   Input,
@@ -29,9 +29,15 @@ const Home_banner = () => {
   });
   const [globalFilter, setGlobalFilter] = useState("");
   const { data: bannerData, refetch } = useGetHomePageBannerDataQuery({
-    pagination,
+    pageIndex: pagination.pageIndex,
+    pageSize: pagination.pageSize,
     search: globalFilter,
   });
+
+useEffect(()=> {
+  refetch()
+},[pagination.pageIndex, pagination.pageSize])
+
   const isDarkMode = false;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingBanner, setEditingBanner] = useState<any | null>(null);
@@ -101,8 +107,12 @@ const Home_banner = () => {
     {
       header: "IMAGE",
       Cell: ({ row }: any) => (
-        <div>
-          <Image src={`${home_banner_image_api}/${row._id}`} />
+        <div className="w-20 h-20">
+          <Image
+            height={"100%"}
+            width={"100%"}
+            src={`${home_banner_image_api}/${row._id}`}
+          />
         </div>
       ),
     },
@@ -187,14 +197,14 @@ const Home_banner = () => {
       </Button>
       <CustomTable
         columns={customColumns}
-        data={bannerData?.data || []}
+        data={bannerData?.data?.result || []}
         pagination={pagination}
         onPaginationChange={(pageIndex, pageSize) =>
           setPagination({ pageIndex, pageSize })
         }
         globalFilter={globalFilter}
         onFilterChange={setGlobalFilter}
-        totalRecordCount={bannerData?.count || 0}
+        totalRecordCount={bannerData?.data?.meta?.total || 0}
       />
       <Modal
         title={editingBanner ? "Edit Banner" : "Add Banner"}
