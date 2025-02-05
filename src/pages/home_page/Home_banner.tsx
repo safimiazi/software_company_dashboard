@@ -34,9 +34,9 @@ const Home_banner = () => {
     search: globalFilter,
   });
 
-useEffect(()=> {
-  refetch()
-},[pagination.pageIndex, pagination.pageSize])
+  useEffect(() => {
+    refetch();
+  }, [pagination.pageIndex, pagination.pageSize]);
 
   const isDarkMode = false;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -109,8 +109,7 @@ useEffect(()=> {
       Cell: ({ row }: any) => (
         <div className="w-20 h-20">
           <Image
-  key={row._id + Date.now()} // Force re-render
-  height={"100%"}
+            height={"100%"}
             width={"100%"}
             src={`${home_banner_image_api}/${row._id}`}
           />
@@ -254,17 +253,17 @@ useEffect(()=> {
               }}
               maxCount={1}
               defaultFileList={
-        editingBanner?.image
-          ? [
-              {
-                uid: "-1",
-                name: "existing_image.jpg",
-                status: "done",
-                url: `${home_banner_image_api}/${editingBanner._id}`, // Adjust URL
-              },
-            ]
-          : []
-      }
+                editingBanner?.image
+                  ? [
+                      {
+                        uid: "-1",
+                        name: "existing_image.jpg",
+                        status: "done",
+                        url: `${home_banner_image_api}/${editingBanner._id}`, // Adjust URL
+                      },
+                    ]
+                  : []
+              }
             >
               {" "}
               <Button icon={<UploadOutlined />}>Upload Image</Button>
