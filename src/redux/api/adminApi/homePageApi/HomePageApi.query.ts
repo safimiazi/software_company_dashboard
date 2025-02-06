@@ -14,8 +14,20 @@ const homePageApiQuery = mainApi.injectEndpoints({
         },
       }),
     }),
+    // about
+    getHomePageAboutData: build.query({
+      query: ({ pageIndex, pageSize, search }) => ({
+        url: "/home_about/get_home_page_about_data",
+        method: "GET",
+        params: {
+          limit: pageSize,
+          page: pageIndex,
+          searchTerm: search,
+        },
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetHomePageBannerDataQuery } = homePageApiQuery;
+export const { useGetHomePageBannerDataQuery,useGetHomePageAboutDataQuery } = homePageApiQuery;
