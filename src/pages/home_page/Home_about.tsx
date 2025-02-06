@@ -54,8 +54,7 @@ const Home_about = () => {
       const formData = new FormData();
       formData.append("title", values.title);
       formData.append("description", values.description);
-      formData.append("ctaText", values.ctaText || "");
-      formData.append("ctaLink", values.ctaLink || "");
+      formData.append("heading", values.heading || "");
 
       // Image Upload Handling
       if (values.image && values.image.file?.originFileObj) {
@@ -126,6 +125,18 @@ const Home_about = () => {
       ),
     },
     {
+      header: "HEADING",
+      Cell: ({ row }: any) => (
+        <div>
+          <div className="flex flex-col gap-1 text-sm">
+            <p>
+              <span className="capitalize">{row.heading}</span>
+            </p>
+          </div>
+        </div>
+      ),
+    },
+    {
       header: "TITLE",
       Cell: ({ row }: any) => (
         <div>
@@ -137,22 +148,7 @@ const Home_about = () => {
         </div>
       ),
     },
-    {
-      header: "CTA TEXT",
-      Cell: ({ row }: any) => (
-        <div className="space-y-1 text-sm">
-          <p>{row.ctaText}</p>
-        </div>
-      ),
-    },
-    {
-      header: "CTA LINK",
-      Cell: ({ row }: any) => (
-        <div className="space-y-1 text-sm">
-          <p>{row.ctaLink}</p>
-        </div>
-      ),
-    },
+
     {
       header: "DESCRIPTION",
       Cell: ({ row }: any) => (
@@ -232,6 +228,9 @@ const Home_about = () => {
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleAddOrUpdate}>
+        <Form.Item name="heading" label="Heading">
+            <Input />
+          </Form.Item>
           <Form.Item
             name="title"
             label="Title"
@@ -246,12 +245,8 @@ const Home_about = () => {
           >
             <Input.TextArea rows={2} />
           </Form.Item>
-          <Form.Item name="ctaText" label="CTA Button Text">
-            <Input />
-          </Form.Item>
-          <Form.Item name="ctaLink" label="CTA Button Link">
-            <Input />
-          </Form.Item>
+        
+        
           <Form.Item name="image" label="Image">
             <Upload
               listType="picture"
