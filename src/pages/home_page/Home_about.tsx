@@ -21,6 +21,7 @@ import {
 } from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
 import { useGetHomePageAboutDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
 import { home_about_image_api } from "../../Proxy";
+import { textFormat } from "../../utils/Format";
 
 const Home_about = () => {
   const [pagination, setPagination] = useState({
@@ -200,7 +201,7 @@ const Home_about = () => {
       header: "DESCRIPTION",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p>{row.description}</p>
+          <p  title={`${row.description}`}>{textFormat(row.description, 10)}</p>
         </div>
       ),
     },

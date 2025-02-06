@@ -22,6 +22,7 @@ import {
   useHomeBannerPutMutation,
 } from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
 import { home_banner_image_api } from "../../Proxy";
+import { textFormat } from "../../utils/Format";
 
 const Home_banner = () => {
   const [pagination, setPagination] = useState({
@@ -186,7 +187,7 @@ const Home_banner = () => {
       header: "DESCRIPTION",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p>{row.description}</p>
+          <p  title={`${row.description}`}>{textFormat(row.description, 10)}</p>
         </div>
       ),
     },
