@@ -114,6 +114,34 @@ const Home_banner = () => {
   };
 
   const customColumns = [
+    
+    {
+      header: "ACTION",
+      size: 50,
+      muiTableHeadCellProps: {
+        sx: { color: `${isDarkMode ? "white" : "black"} ` },
+      },
+      Cell: ({ row }: any) => (
+        <div className="flex justify-start gap-2">
+          <Popconfirm
+            title="Are you sure you want to delete this banner?"
+            description="This action cannot be undone."
+            onConfirm={() => handleDelete(row._id)} // Executes delete on confirm
+            okText="Yes, Delete"
+            cancelText="Cancel"
+            okButtonProps={{ danger: true }}
+          >
+            <Button type="primary" danger icon={<DeleteOutlined />}>
+              Delete
+            </Button>
+          </Popconfirm>
+
+          <Button loading={isDeleteLoading} onClick={() => handleEdit(row)}>
+            Edit
+          </Button>
+        </div>
+      ),
+    },
     {
       header: "IMAGE",
       Cell: ({ row }: any) => (
@@ -177,33 +205,6 @@ const Home_banner = () => {
       ),
     },
 
-    {
-      header: "ACTION",
-      size: 50,
-      muiTableHeadCellProps: {
-        sx: { color: `${isDarkMode ? "white" : "black"} ` },
-      },
-      Cell: ({ row }: any) => (
-        <div className="flex justify-start gap-2">
-          <Popconfirm
-            title="Are you sure you want to delete this banner?"
-            description="This action cannot be undone."
-            onConfirm={() => handleDelete(row._id)} // Executes delete on confirm
-            okText="Yes, Delete"
-            cancelText="Cancel"
-            okButtonProps={{ danger: true }}
-          >
-            <Button type="primary" danger icon={<DeleteOutlined />}>
-              Delete
-            </Button>
-          </Popconfirm>
-
-          <Button loading={isDeleteLoading} onClick={() => handleEdit(row)}>
-            Edit
-          </Button>
-        </div>
-      ),
-    },
   ];
 
   return (

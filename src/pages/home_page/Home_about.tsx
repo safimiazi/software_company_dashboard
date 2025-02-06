@@ -55,6 +55,8 @@ const Home_about = () => {
       formData.append("title", values.title);
       formData.append("description", values.description);
       formData.append("heading", values.heading || "");
+      formData.append("ctaText", values.ctaText || "");
+      formData.append("ctaLink", values.ctaLink || "");
 
       // Image Upload Handling
       if (values.image && values.image.file?.originFileObj) {
@@ -80,8 +82,9 @@ const Home_about = () => {
       setEditingAbout(null);
       form.resetFields();
     } catch (error: any) {
+        console.log("ddd", error)
       notification.error({
-        message: error?.message || "Something went wrong!",
+        message: error?.data?.errorSource[0]?.message || "Something went wrong!",
         placement: "topRight",
       });
     }
@@ -112,6 +115,34 @@ const Home_about = () => {
   };
 
   const customColumns = [
+    
+    {
+        header: "ACTION",
+        size: 50,
+        muiTableHeadCellProps: {
+          sx: { color: `${isDarkMode ? "white" : "black"} ` },
+        },
+        Cell: ({ row }: any) => (
+          <div className="flex justify-start gap-2">
+            <Popconfirm
+              title="Are you sure you want to delete this About?"
+              description="This action cannot be undone."
+              onConfirm={() => handleDelete(row._id)} // Executes delete on confirm
+              okText="Yes, Delete"
+              cancelText="Cancel"
+              okButtonProps={{ danger: true }}
+            >
+              <Button type="primary" danger icon={<DeleteOutlined />}>
+                Delete
+              </Button>
+            </Popconfirm>
+  
+            <Button loading={isDeleteLoading} onClick={() => handleEdit(row)}>
+              Edit
+            </Button>
+          </div>
+        ),
+      },
     {
       header: "IMAGE",
       Cell: ({ row }: any) => (
@@ -150,6 +181,22 @@ const Home_about = () => {
     },
 
     {
+        header: "CTA TEXT",
+        Cell: ({ row }: any) => (
+          <div className="space-y-1 text-sm">
+            <p>{row.ctaText}</p>
+          </div>
+        ),
+      },
+      {
+        header: "CTA LINK",
+        Cell: ({ row }: any) => (
+          <div className="space-y-1 text-sm">
+            <p>{row.ctaLink}</p>
+          </div>
+        ),
+      },
+    {
       header: "DESCRIPTION",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
@@ -172,33 +219,6 @@ const Home_about = () => {
       ),
     },
 
-    {
-      header: "ACTION",
-      size: 50,
-      muiTableHeadCellProps: {
-        sx: { color: `${isDarkMode ? "white" : "black"} ` },
-      },
-      Cell: ({ row }: any) => (
-        <div className="flex justify-start gap-2">
-          <Popconfirm
-            title="Are you sure you want to delete this About?"
-            description="This action cannot be undone."
-            onConfirm={() => handleDelete(row._id)} // Executes delete on confirm
-            okText="Yes, Delete"
-            cancelText="Cancel"
-            okButtonProps={{ danger: true }}
-          >
-            <Button type="primary" danger icon={<DeleteOutlined />}>
-              Delete
-            </Button>
-          </Popconfirm>
-
-          <Button loading={isDeleteLoading} onClick={() => handleEdit(row)}>
-            Edit
-          </Button>
-        </div>
-      ),
-    },
   ];
 
   return (
@@ -236,6 +256,12 @@ const Home_about = () => {
             label="Title"
             rules={[{ required: true, message: "Please enter title" }]}
           >
+            <Input />
+          </Form.Item>
+          <Form.Item name="ctaText" label="CTA Button Text">
+            <Input />
+          </Form.Item>
+          <Form.Item name="ctaLink" label="CTA Button Link">
             <Input />
           </Form.Item>
           <Form.Item
