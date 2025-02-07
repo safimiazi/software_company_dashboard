@@ -23,6 +23,7 @@ const Home_services = () => {
                 <Input placeholder="Type description..."/>
               </Form.Item>
             </Col>
+            
             <Col xs={24} sm={12} md={6}>
               <Form.Item name={"ctaLink"} label="CTA button link">
                 <Input placeholder="Type cta link..."/>
@@ -33,7 +34,7 @@ const Home_services = () => {
                 <Input  placeholder="Type cta text..."/>
               </Form.Item>
             </Col>
-            
+
             <Col xs={24} sm={24} md={6} style={{marginTop: "auto"}}>
             <Form.Item >
               <Button className="flex-grow" style={{width: "100%"}}>Add service</Button>
