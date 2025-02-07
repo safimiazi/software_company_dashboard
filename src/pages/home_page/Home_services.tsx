@@ -10,34 +10,36 @@ const Home_services = () => {
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} md={6}>
               <Form.Item name={"heading"} label="Heading">
-                <Input placeholder="Type heading..."/>
+                <Input placeholder="Type heading..." />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={6}>
               <Form.Item name={"title"} label="Title">
-                <Input  placeholder="Type title..."/>
+                <Input placeholder="Type title..." />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={6}>
               <Form.Item name={"description"} label="Description">
-                <Input placeholder="Type description..."/>
+                <Input placeholder="Type description..." />
               </Form.Item>
             </Col>
-            
+
             <Col xs={24} sm={12} md={6}>
               <Form.Item name={"ctaLink"} label="CTA button link">
-                <Input placeholder="Type cta link..."/>
+                <Input placeholder="Type cta link..." />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={6}>
               <Form.Item name={"ctaText"} label="CTA button text">
-                <Input  placeholder="Type cta text..."/>
+                <Input placeholder="Type cta text..." />
               </Form.Item>
             </Col>
 
-            <Col xs={24} sm={24} md={6} style={{marginTop: "auto"}}>
-            <Form.Item >
-              <Button className="flex-grow" style={{width: "100%"}}>Add service</Button>
+            <Col xs={24} sm={24} md={6} style={{ marginTop: "auto" }}>
+              <Form.Item>
+                <Button className="flex-grow" style={{ width: "100%" }}>
+                  Add service
+                </Button>
               </Form.Item>
             </Col>
           </Row>
