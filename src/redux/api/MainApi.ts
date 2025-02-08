@@ -10,8 +10,7 @@ import { api_url } from "../../Proxy";
   }),
   tagTypes:["login_admin"],
 
- // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
 });
 
 export default mainApi;

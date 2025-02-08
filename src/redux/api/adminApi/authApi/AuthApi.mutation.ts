@@ -4,6 +4,7 @@ const authApiMutation = mainApi.injectEndpoints({
   endpoints: (build) => ({
     adminLogin: build.mutation({
       query: (loginData) => {
+        console.log("dataa, : ", loginData)
         return {
           url: "/admin/login",
           method: "POST",
