@@ -8,7 +8,8 @@ const authApiMutation = mainApi.injectEndpoints({
         return {
           url: "/admin/login",
           method: "POST",
-          body: loginData,
+        
+          body: loginData
         };
       },
       invalidatesTags: ["login_admin"],

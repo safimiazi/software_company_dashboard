@@ -6,6 +6,7 @@ import { api_url } from "../../Proxy";
   baseQuery: fetchBaseQuery({
     baseUrl: api_url,
     credentials: "include",
+  
     
   }),
   tagTypes:["login_admin"],
