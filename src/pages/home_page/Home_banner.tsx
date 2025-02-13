@@ -150,7 +150,7 @@ const Home_banner = () => {
           <Image
             height={"100%"}
             width={"100%"}
-            src={`${home_banner_image_api}/${row._id}`}
+            src={`${row.image}`}
           />
         </div>
       ),
@@ -277,7 +277,7 @@ const Home_banner = () => {
                         uid: "-1",
                         name: "existing_image.jpg",
                         status: "done",
-                        url: `${home_banner_image_api}/${editingBanner._id}`, // Adjust URL
+                        url: `${editingBanner.image}`, // Adjust URL
                       },
                     ]
                   : []
