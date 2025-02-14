@@ -20,7 +20,6 @@ import {
   useHomeAboutPutMutation,
 } from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
 import { useGetHomePageAboutDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
-import { home_about_image_api } from "../../Proxy";
 import { textFormat } from "../../utils/Format";
 
 const Home_about = () => {
@@ -151,7 +150,7 @@ const Home_about = () => {
           <Image
             height={"100%"}
             width={"100%"}
-            src={`${home_about_image_api}/${row._id}`}
+            src={`${row.image}`}
           />
         </div>
       ),
@@ -294,7 +293,7 @@ const Home_about = () => {
                         uid: "-1",
                         name: "existing_image.jpg",
                         status: "done",
-                        url: `${home_about_image_api}/${editingAbout._id}`, // Adjust URL
+                        url: `${editingAbout?.image}`, // Adjust URL
                       },
                     ]
                   : []
