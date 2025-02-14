@@ -14,11 +14,7 @@ import {
 } from "antd";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
-import {
-  useHomeAboutDeleteMutation,
-  useHomeAboutPostMutation,
-  useHomeAboutPutMutation,
-} from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
+
 import { useGetHomePageAboutDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
 import { textFormat } from "../../utils/Format";
 import { useServicesDeleteMutation, useServicesPostMutation, useServicesPutMutation } from "../../redux/api/adminApi/serviceApi/Service.mutation";
@@ -55,7 +51,6 @@ const Home_services = () => {
       const formData = new FormData();
       formData.append("title", values.title);
       formData.append("description", values.description);
-      formData.append("heading", values.heading || "");
       formData.append("ctaText", values.ctaText || "");
       formData.append("ctaLink", values.ctaLink || "");
 
