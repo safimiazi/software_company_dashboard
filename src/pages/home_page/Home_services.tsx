@@ -15,13 +15,13 @@ import {
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
 
-import { useGetHomePagedataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
 import { textFormat } from "../../utils/Format";
 import {
   useServicesDeleteMutation,
   useServicesPostMutation,
   useServicesPutMutation,
 } from "../../redux/api/adminApi/serviceApi/Service.mutation";
+import { useGetservicesDataQuery } from "../../redux/api/adminApi/serviceApi/Service.query";
 
 const Home_services = () => {
   const [pagination, setPagination] = useState({
@@ -29,7 +29,7 @@ const Home_services = () => {
     pageSize: 10,
   });
   const [globalFilter, setGlobalFilter] = useState("");
-  const { data: data, refetch } = useGetHomePagedataQuery({
+  const { data: data, refetch } = useGetservicesDataQuery({
     pageIndex: pagination.pageIndex,
     pageSize: pagination.pageSize,
     search: globalFilter,
