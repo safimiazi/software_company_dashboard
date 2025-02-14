@@ -3,9 +3,9 @@ import mainApi from "../../MainApi";
 const homePageApiQuery = mainApi.injectEndpoints({
   endpoints: (build) => ({
     //   Home Page Banner
-    getHomePageBannerData: build.query({
+    getservicesData: build.query({
       query: ({ pageIndex, pageSize, search }) => ({
-        url: "/home_banner/get_home_page_banner_data",
+        url: "/services/get_services_data",
         method: "GET",
         params: {
           limit: pageSize,
@@ -14,20 +14,9 @@ const homePageApiQuery = mainApi.injectEndpoints({
         },
       }),
     }),
-    // about
-    getHomePageAboutData: build.query({
-      query: ({ pageIndex, pageSize, search }) => ({
-        url: "/home_about/get_home_page_about_data",
-        method: "GET",
-        params: {
-          limit: pageSize,
-          page: pageIndex,
-          searchTerm: search,
-        },
-      }),
-    }),
+
   }),
   overrideExisting: false,
 });
 
-export const { useGetHomePageBannerDataQuery,useGetHomePageAboutDataQuery } = homePageApiQuery;
+export const { useGetservicesDataQuery } = homePageApiQuery;

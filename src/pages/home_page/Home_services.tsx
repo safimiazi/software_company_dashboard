@@ -21,6 +21,7 @@ import {
 } from "../../redux/api/adminApi/homePageApi/HomePageApi.mutation";
 import { useGetHomePageAboutDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
 import { textFormat } from "../../utils/Format";
+import { useServicesDeleteMutation, useServicesPostMutation, useServicesPutMutation } from "../../redux/api/adminApi/serviceApi/Service.mutation";
 
 const Home_services = () => {
   const [pagination, setPagination] = useState({
@@ -42,12 +43,12 @@ const Home_services = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [Editing, setEditing] = useState<any | null>(null);
   const [form] = Form.useForm();
-  const [homeAboutPost, { isLoading: isPostLoading }] =
-    useHomeAboutPostMutation();
-  const [homeAboutPut, { isLoading: isEditLoading }] =
-    useHomeAboutPutMutation();
-  const [homeAboutDelete, { isLoading: isDeleteLoading }] =
-    useHomeAboutDeleteMutation();
+  const [servicesPost, { isLoading: isPostLoading }] =
+    useServicesPostMutation();
+  const [servicesPut, { isLoading: isEditLoading }] =
+    useServicesPutMutation();
+  const [servicesDelete, { isLoading: isDeleteLoading }] =
+    useServicesDeleteMutation();
 
   const handleAddOrUpdate = async (values: any) => {
     try {
@@ -65,12 +66,12 @@ const Home_services = () => {
 
       let res;
       if (Editing) {
-        res = await homeAboutPut({
+        res = await servicesPut({
           data: formData,
           id: Editing._id,
         }).unwrap();
       } else {
-        res = await homeAboutPost(formData).unwrap();
+        res = await servicesPost(formData).unwrap();
       }
       notification.success({
         message: res?.message,
@@ -99,7 +100,7 @@ const Home_services = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await homeAboutDelete({ id }).unwrap();
+      const res = await servicesDelete({ id }).unwrap();
       notification.success({
         message: res?.message,
         placement: "topRight",
