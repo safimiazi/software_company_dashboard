@@ -15,9 +15,13 @@ import {
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
 
-import { useGetHomePageAboutDataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
+import { useGetHomePagedataQuery } from "../../redux/api/adminApi/homePageApi/HomePageApi.query";
 import { textFormat } from "../../utils/Format";
-import { useServicesDeleteMutation, useServicesPostMutation, useServicesPutMutation } from "../../redux/api/adminApi/serviceApi/Service.mutation";
+import {
+  useServicesDeleteMutation,
+  useServicesPostMutation,
+  useServicesPutMutation,
+} from "../../redux/api/adminApi/serviceApi/Service.mutation";
 
 const Home_services = () => {
   const [pagination, setPagination] = useState({
@@ -25,7 +29,7 @@ const Home_services = () => {
     pageSize: 10,
   });
   const [globalFilter, setGlobalFilter] = useState("");
-  const { data: AboutData, refetch } = useGetHomePageAboutDataQuery({
+  const { data: data, refetch } = useGetHomePagedataQuery({
     pageIndex: pagination.pageIndex,
     pageSize: pagination.pageSize,
     search: globalFilter,
@@ -41,8 +45,7 @@ const Home_services = () => {
   const [form] = Form.useForm();
   const [servicesPost, { isLoading: isPostLoading }] =
     useServicesPostMutation();
-  const [servicesPut, { isLoading: isEditLoading }] =
-    useServicesPutMutation();
+  const [servicesPut, { isLoading: isEditLoading }] = useServicesPutMutation();
   const [servicesDelete, { isLoading: isDeleteLoading }] =
     useServicesDeleteMutation();
 
@@ -143,26 +146,11 @@ const Home_services = () => {
       header: "IMAGE",
       Cell: ({ row }: any) => (
         <div className="w-20 h-20">
-          <Image
-            height={"100%"}
-            width={"100%"}
-            src={`${row.image}`}
-          />
+          <Image height={"100%"} width={"100%"} src={`${row.image}`} />
         </div>
       ),
     },
-    {
-      header: "HEADING",
-      Cell: ({ row }: any) => (
-        <div>
-          <div className="flex flex-col gap-1 text-sm">
-            <p>
-              <span className="capitalize">{row.heading}</span>
-            </p>
-          </div>
-        </div>
-      ),
-    },
+
     {
       header: "TITLE",
       Cell: ({ row }: any) => (
@@ -196,7 +184,7 @@ const Home_services = () => {
       header: "DESCRIPTION",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p  title={`${row.description}`}>{textFormat(row.description, 10)}</p>
+          <p title={`${row.description}`}>{textFormat(row.description, 10)}</p>
         </div>
       ),
     },
@@ -219,21 +207,21 @@ const Home_services = () => {
   return (
     <div style={{ padding: 20 }}>
       <Button type="primary" onClick={() => setIsModalOpen(true)}>
-        Add About
+        Add Service
       </Button>
       <CustomTable
         columns={customColumns}
-        data={AboutData?.data?.result || []}
+        data={data?.data?.result || []}
         pagination={pagination}
         onPaginationChange={(pageIndex, pageSize) =>
           setPagination({ pageIndex, pageSize })
         }
         globalFilter={globalFilter}
         onFilterChange={setGlobalFilter}
-        totalRecordCount={AboutData?.data?.meta?.total || 0}
+        totalRecordCount={data?.data?.meta?.total || 0}
       />
       <Modal
-        title={Editing ? "Edit About" : "Add About"}
+        title={Editing ? "Edit" : "Add"}
         open={isModalOpen}
         onCancel={() => {
           setIsModalOpen(false);
@@ -243,9 +231,6 @@ const Home_services = () => {
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleAddOrUpdate}>
-          <Form.Item name="heading" label="Heading">
-            <Input />
-          </Form.Item>
           <Form.Item
             name="title"
             label="Title"
