@@ -16,6 +16,7 @@ const authApiMutation = mainApi.injectEndpoints({
     }),
     adminLogout: build.mutation({
       query: () => ({
+        
         url: "/admin/logout",
         method: "POST",
       }),
