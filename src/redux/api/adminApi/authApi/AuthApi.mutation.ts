@@ -4,19 +4,18 @@ const authApiMutation = mainApi.injectEndpoints({
   endpoints: (build) => ({
     adminLogin: build.mutation({
       query: (loginData) => {
-        console.log("dataa, : ", loginData)
+        console.log("dataa, : ", loginData);
         return {
           url: "/admin/login",
           method: "POST",
-        
-          body: loginData
+
+          body: loginData,
         };
       },
       invalidatesTags: ["login_admin"],
     }),
     adminLogout: build.mutation({
       query: () => ({
-        
         url: "/admin/logout",
         method: "POST",
       }),
