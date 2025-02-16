@@ -77,7 +77,6 @@ const Section_header = () => {
       setEditing(null);
       form.resetFields();
     } catch (error: any) {
-      console.log("ddd", error);
       notification.error({
         message:
           error?.data?.errorSource[0]?.message || "Something went wrong!",
