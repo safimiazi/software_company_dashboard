@@ -10,6 +10,16 @@ export const adminPaths = [
     element: <Dashboard />,
   },
   {
+    name: "Services",
+    path: "services",
+    element: <Home_services />,
+  },
+  {
+    name: "Section header",
+    path: "section-header",
+    element: <Home_services />,
+  },
+  {
     name: "Home Page",
     children: [
       {
@@ -22,11 +32,7 @@ export const adminPaths = [
         path: "about",
         element: <Home_about />,
       },
-      {
-        name: "Services",
-        path: "services",
-        element: <Home_services />,
-      },
+
     ],
   },
 ];
