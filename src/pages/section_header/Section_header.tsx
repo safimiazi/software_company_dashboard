@@ -16,12 +16,8 @@ import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
 
 import { textFormat } from "../../utils/Format";
-import {
-  useServicesDeleteMutation,
-  useServicesPostMutation,
-  useServicesPutMutation,
-} from "../../redux/api/adminApi/serviceApi/Service.mutation";
-import { useGetservicesDataQuery } from "../../redux/api/adminApi/serviceApi/Service.query";
+import { useGetsection_headerDataQuery } from "../../redux/api/adminApi/sectionHeaderApi/SectionHeader.query";
+import { useSection_headerDeleteMutation, useSection_headerPostMutation, useSection_headerPutMutation } from "../../redux/api/adminApi/sectionHeaderApi/SectionHeader.mutation";
 
 const Section_header = () => {
   const [pagination, setPagination] = useState({
@@ -29,7 +25,7 @@ const Section_header = () => {
     pageSize: 10,
   });
   const [globalFilter, setGlobalFilter] = useState("");
-  const { data: data, refetch } = useGetservicesDataQuery({
+  const { data: data, refetch } = useGetsection_headerDataQuery({
     pageIndex: pagination.pageIndex,
     pageSize: pagination.pageSize,
     search: globalFilter,
@@ -43,11 +39,11 @@ const Section_header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [Editing, setEditing] = useState<any | null>(null);
   const [form] = Form.useForm();
-  const [servicesPost, { isLoading: isPostLoading }] =
-    useServicesPostMutation();
-  const [servicesPut, { isLoading: isEditLoading }] = useServicesPutMutation();
-  const [servicesDelete, { isLoading: isDeleteLoading }] =
-    useServicesDeleteMutation();
+  const [section_headerPost, { isLoading: isPostLoading }] =
+    useSection_headerPostMutation();
+  const [section_headerPut, { isLoading: isEditLoading }] = useSection_headerPutMutation();
+  const [section_headerDelete, { isLoading: isDeleteLoading }] =
+    useSection_headerDeleteMutation();
 
   const handleAddOrUpdate = async (values: any) => {
     try {
@@ -64,12 +60,12 @@ const Section_header = () => {
 
       let res;
       if (Editing) {
-        res = await servicesPut({
+        res = await section_headerPut({
           data: formData,
           id: Editing._id,
         }).unwrap();
       } else {
-        res = await servicesPost(formData).unwrap();
+        res = await section_headerPut(formData).unwrap();
       }
       notification.success({
         message: res?.message,
@@ -98,7 +94,7 @@ const Section_header = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await servicesDelete({ id }).unwrap();
+      const res = await section_headerDelete({ id }).unwrap();
       notification.success({
         message: res?.message,
         placement: "topRight",
@@ -142,15 +138,20 @@ const Section_header = () => {
         </div>
       ),
     },
+
+
     {
-      header: "IMAGE",
+      header: "HEADING",
       Cell: ({ row }: any) => (
-        <div className="w-20 h-20">
-          <Image height={"100%"} width={"100%"} src={`${row.image}`} />
+        <div>
+          <div className="flex flex-col gap-1 text-sm">
+            <p>
+              <span className="capitalize">{row.heading}</span>
+            </p>
+          </div>
         </div>
       ),
     },
-
     {
       header: "TITLE",
       Cell: ({ row }: any) => (
@@ -180,14 +181,7 @@ const Section_header = () => {
         </div>
       ),
     },
-    {
-      header: "DESCRIPTION",
-      Cell: ({ row }: any) => (
-        <div className="space-y-1 text-sm">
-          <p title={`${row.description}`}>{textFormat(row.description, 10)}</p>
-        </div>
-      ),
-    },
+
     {
       header: "CREATED DATE",
       Cell: ({ row }: any) => (
