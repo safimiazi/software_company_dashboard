@@ -52,20 +52,15 @@ const Section_header = () => {
 
   const handleAddOrUpdate = async (values: any) => {
     try {
-      const formData = new FormData();
-      formData.append("title", values.title);
-      formData.append("heading", values.heading);
-      formData.append("ctaText", values.ctaText || "");
-      formData.append("ctaLink", values.ctaLink || "");
-
+    
       let res;
       if (Editing) {
         res = await section_headerPut({
-          data: formData,
+          data: values,
           id: Editing._id,
         }).unwrap();
       } else {
-        res = await section_headerPost(formData).unwrap();
+        res = await section_headerPost(values).unwrap();
       }
       notification.success({
         message: res?.message,
