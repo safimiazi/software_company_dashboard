@@ -2,6 +2,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Home_about from "../pages/home_page/Home_about";
 import Home_banner from "../pages/home_page/Home_banner";
 import Home_services from "../pages/home_page/Home_services";
+import Section_header from "../pages/section_header/Section_header";
 
 export const adminPaths = [
   {
@@ -17,7 +18,7 @@ export const adminPaths = [
   {
     name: "Section header",
     path: "section-header",
-    element: <Home_services />,
+    element: <Section_header />,
   },
   {
     name: "Home Page",
