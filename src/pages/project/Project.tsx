@@ -184,23 +184,28 @@ const Project = () => {
         </div>
       ),
     },
+    {
+      header: "RATING",
+      Cell: ({ row }: any) => (
+        <div>
+          <div className="flex flex-col gap-1 text-sm">
+            <p>
+              <span className="capitalize">{row.rating}</span>
+            </p>
+          </div>
+        </div>
+      ),
+    },
 
     {
-      header: "CTA TEXT",
+      header: "PROJECT OVERVIEW",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p>{row.ctaText}</p>
+          <p title={`${row.overview}`}>{textFormat(row.overview, 10)}</p>
         </div>
       ),
     },
-    {
-      header: "CTA LINK",
-      Cell: ({ row }: any) => (
-        <div className="space-y-1 text-sm">
-          <p>{row.ctaLink}</p>
-        </div>
-      ),
-    },
+
     {
       header: "DESCRIPTION",
       Cell: ({ row }: any) => (
@@ -348,7 +353,6 @@ const Project = () => {
           <Form.Item
             name="demoUrl"
             label="Demo URL"
-            rules={[{ required: true, message: "Please enter demo URL" }]}
           >
             <Input placeholder="Enter demo URL" />
           </Form.Item>
@@ -356,7 +360,6 @@ const Project = () => {
           <Form.Item
             name="githubUrl"
             label="GitHub URL"
-            rules={[{ required: true, message: "Please enter GitHub URL" }]}
           >
             <Input placeholder="Enter GitHub URL" />
           </Form.Item>
