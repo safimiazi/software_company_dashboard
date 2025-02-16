@@ -17,7 +17,11 @@ import CustomTable from "../../utils/CustomTable";
 
 import { textFormat } from "../../utils/Format";
 import { useGetsection_headerDataQuery } from "../../redux/api/adminApi/sectionHeaderApi/SectionHeader.query";
-import { useSection_headerDeleteMutation, useSection_headerPostMutation, useSection_headerPutMutation } from "../../redux/api/adminApi/sectionHeaderApi/SectionHeader.mutation";
+import {
+  useSection_headerDeleteMutation,
+  useSection_headerPostMutation,
+  useSection_headerPutMutation,
+} from "../../redux/api/adminApi/sectionHeaderApi/SectionHeader.mutation";
 
 const Section_header = () => {
   const [pagination, setPagination] = useState({
@@ -41,7 +45,8 @@ const Section_header = () => {
   const [form] = Form.useForm();
   const [section_headerPost, { isLoading: isPostLoading }] =
     useSection_headerPostMutation();
-  const [section_headerPut, { isLoading: isEditLoading }] = useSection_headerPutMutation();
+  const [section_headerPut, { isLoading: isEditLoading }] =
+    useSection_headerPutMutation();
   const [section_headerDelete, { isLoading: isDeleteLoading }] =
     useSection_headerDeleteMutation();
 
@@ -139,7 +144,6 @@ const Section_header = () => {
       ),
     },
 
-
     {
       header: "HEADING",
       Cell: ({ row }: any) => (
@@ -201,7 +205,7 @@ const Section_header = () => {
   return (
     <div style={{ padding: 20 }}>
       <Button type="primary" onClick={() => setIsModalOpen(true)}>
-        Add Service
+        Add section header
       </Button>
       <CustomTable
         columns={customColumns}
@@ -226,6 +230,13 @@ const Section_header = () => {
       >
         <Form form={form} layout="vertical" onFinish={handleAddOrUpdate}>
           <Form.Item
+            name="heading"
+            label="Heading"
+            rules={[{ required: true, message: "Please enter heading" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
             name="title"
             label="Title"
             rules={[{ required: true, message: "Please enter title" }]}
@@ -238,46 +249,7 @@ const Section_header = () => {
           <Form.Item name="ctaLink" label="CTA Button Link">
             <Input />
           </Form.Item>
-          <Form.Item
-            name="description"
-            label="Description"
-            rules={[{ required: true, message: "Please enter description" }]}
-          >
-            <Input.TextArea rows={2} />
-          </Form.Item>
 
-          <Form.Item name="image" label="Image">
-            <Upload
-              listType="picture"
-              beforeUpload={(file) => {
-                const isValidType =
-                  file.type === "image/png" || file.type === "image/jpeg";
-                if (!isValidType) {
-                  notification.error({
-                    message: "You can only upload PNG or JPG files!",
-                    placement: "topRight",
-                  });
-                }
-                return isValidType || Upload.LIST_IGNORE;
-              }}
-              maxCount={1}
-              defaultFileList={
-                Editing?.image
-                  ? [
-                      {
-                        uid: "-1",
-                        name: "existing_image.jpg",
-                        status: "done",
-                        url: `${Editing?.image}`, // Adjust URL
-                      },
-                    ]
-                  : []
-              }
-            >
-              {" "}
-              <Button icon={<UploadOutlined />}>Upload Image</Button>
-            </Upload>
-          </Form.Item>
           <Form.Item>
             <Button
               loading={Editing ? isEditLoading : isPostLoading}
