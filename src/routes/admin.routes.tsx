@@ -1,3 +1,4 @@
+import CaseStudy from "../pages/case_study/CaseStudy";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Home_about from "../pages/home_page/Home_about";
 import Home_banner from "../pages/home_page/Home_banner";
@@ -25,6 +26,11 @@ export const adminPaths = [
     name: "Section header",
     path: "section-header",
     element: <Section_header />,
+  },
+  {
+    name: "Case Study",
+    path: "case-study",
+    element: <CaseStudy />,
   },
   {
     name: "Home Page",
