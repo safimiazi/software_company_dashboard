@@ -71,10 +71,13 @@ const CaseStudy = () => {
         formData.append(`technologies[${index}]`, tech);
       });
 
-      Object.keys(values.testimonial).forEach((key: string) => {
-        formData.append(key, values.testimonial[key]);
+    
+    // Append each field of the testimonial object individually
+    Object.keys(values.testimonial).forEach((key: string) => {
+        formData.append(`testimonial.${key}`, values.testimonial[key]);
       });
 
+      
       // Handling Image Upload
       if (values.image && values.image.file?.originFileObj) {
         formData.append("image", values.image.file.originFileObj);
@@ -242,7 +245,7 @@ const CaseStudy = () => {
     <div style={{ padding: 20 }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Button type="primary" onClick={() => setIsModalOpen(true)}>
-          Add New Project
+          Add New Case Study
         </Button>
 
         <CustomTable
