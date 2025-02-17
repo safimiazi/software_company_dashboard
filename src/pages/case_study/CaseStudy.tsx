@@ -181,12 +181,24 @@ const CaseStudy = () => {
       ),
     },
     {
-      header: "RATING",
+      header: "CLIENT",
       Cell: ({ row }: any) => (
         <div>
           <div className="flex flex-col gap-1 text-sm">
             <p>
-              <span className="capitalize">{row.rating}</span>
+              <span className="capitalize">{row.client}</span>
+            </p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      header: "DURATION",
+      Cell: ({ row }: any) => (
+        <div>
+          <div className="flex flex-col gap-1 text-sm">
+            <p>
+              <span className="capitalize">{row.duration}</span>
             </p>
           </div>
         </div>
@@ -194,19 +206,19 @@ const CaseStudy = () => {
     },
 
     {
-      header: "PROJECT OVERVIEW",
+      header: "CHALLENGE",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p title={`${row.overview}`}>{textFormat(row.overview, 10)}</p>
+          <p title={`${row.challenge}`}>{textFormat(row.challenge, 10)}</p>
         </div>
       ),
     },
 
     {
-      header: "DESCRIPTION",
+      header: "SOLUTION",
       Cell: ({ row }: any) => (
         <div className="space-y-1 text-sm">
-          <p title={`${row.description}`}>{textFormat(row.description, 10)}</p>
+          <p title={`${row.solution}`}>{textFormat(row.solution, 10)}</p>
         </div>
       ),
     },
