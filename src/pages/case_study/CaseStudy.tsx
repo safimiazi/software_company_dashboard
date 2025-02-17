@@ -68,7 +68,9 @@ const CaseStudy = () => {
         formData.append(`technologies[${index}]`, tech)
       });
 
-
+     Object.keys(values.testimonial).forEach((key: string) => {
+        formData.append(key, values.testimonial[key])
+     })
 
 
 
@@ -78,24 +80,24 @@ const CaseStudy = () => {
       }
 
       let res;
-    //   if (EditingCaseStudy) {
-    //     res = await projectPut({
-    //       data: formData,
-    //       id: EditingCaseStudy._id,
-    //     }).unwrap();
-    //   } else {
-    //     res = await projectPost(formData).unwrap();
-    //   }
+      if (EditingCaseStudy) {
+        res = await projectPut({
+          data: formData,
+          id: EditingCaseStudy._id,
+        }).unwrap();
+      } else {
+        res = await projectPost(formData).unwrap();
+      }
 
-    //   notification.success({
-    //     message: res?.message,
-    //     placement: "topRight",
-    //   });
+      notification.success({
+        message: res?.message,
+        placement: "topRight",
+      });
 
-    //   refetch();
-    //   setIsModalOpen(false);
-    //   form.resetFields();
-    //   setEditingCaseStudy(null);
+      refetch();
+      setIsModalOpen(false);
+      form.resetFields();
+      setEditingCaseStudy(null);
     } catch (error: any) {
       notification.error({
         message: error?.message || "Something went wrong!",
