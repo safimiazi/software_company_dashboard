@@ -23,12 +23,13 @@ import {
 } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
 import { textFormat } from "../../utils/Format";
+
 import {
-  useProjectDeleteMutation,
-  useProjectPostMutation,
-  useProjectPutMutation,
-} from "../../redux/api/adminApi/projectApi/Project.mutarion";
-import { useGetProjectDataQuery } from "../../redux/api/adminApi/projectApi/Project.query";
+  useCase_studyDeleteMutation,
+  useCase_studyPostMutation,
+  useCase_studyPutMutation,
+} from "../../redux/api/adminApi/caseStudyApi/CaseStudy.mutation";
+import { useGetcase_studyDataQuery } from "../../redux/api/adminApi/caseStudyApi/CaseStudy.query";
 
 const { TextArea } = Input;
 
@@ -41,15 +42,17 @@ const CaseStudy = () => {
     pageSize: 10,
   });
   const [globalFilter, setGlobalFilter] = useState("");
-  const { data: data, refetch } = useGetProjectDataQuery({
+  const { data: data, refetch } = useGetcase_studyDataQuery({
     pageIndex: pagination.pageIndex,
     pageSize: pagination.pageSize,
     search: globalFilter,
   });
-  const [projectPost, { isLoading: isPostLoading }] = useProjectPostMutation();
-  const [projectPut, { isLoading: isEditLoading }] = useProjectPutMutation();
-  const [projectDelete, { isLoading: isDeleteLoading }] =
-    useProjectDeleteMutation();
+  const [case_studyPost, { isLoading: isPostLoading }] =
+    useCase_studyPostMutation();
+  const [case_studyPut, { isLoading: isEditLoading }] =
+    useCase_studyPutMutation();
+  const [case_studyDelete, { isLoading: isDeleteLoading }] =
+    useCase_studyDeleteMutation();
 
   const handleAddOrUpdate = async (values: any) => {
     try {
@@ -60,19 +63,17 @@ const CaseStudy = () => {
       formData.append("duration", values.duration);
       formData.append("challenge", values.challenge);
       formData.append("solution", values.solution);
-      
+
       values.results?.forEach((result: string, index: number) => {
-        formData.append(`results[${index}]`, result)
+        formData.append(`results[${index}]`, result);
       });
       values.technologies?.forEach((tech: string, index: number) => {
-        formData.append(`technologies[${index}]`, tech)
+        formData.append(`technologies[${index}]`, tech);
       });
 
-     Object.keys(values.testimonial).forEach((key: string) => {
-        formData.append(key, values.testimonial[key])
-     })
-
-
+      Object.keys(values.testimonial).forEach((key: string) => {
+        formData.append(key, values.testimonial[key]);
+      });
 
       // Handling Image Upload
       if (values.image && values.image.file?.originFileObj) {
@@ -81,12 +82,12 @@ const CaseStudy = () => {
 
       let res;
       if (EditingCaseStudy) {
-        res = await projectPut({
+        res = await case_studyPut({
           data: formData,
           id: EditingCaseStudy._id,
         }).unwrap();
       } else {
-        res = await projectPost(formData).unwrap();
+        res = await case_studyPost(formData).unwrap();
       }
 
       notification.success({
@@ -114,7 +115,7 @@ const CaseStudy = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await projectDelete({ id }).unwrap();
+      const res = await case_studyDelete({ id }).unwrap();
       notification.success({
         message: res?.message,
         placement: "topRight",
