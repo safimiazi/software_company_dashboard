@@ -248,7 +248,7 @@ const Home_services = () => {
             rules={[{ required: true, message: "Please enter section header" }]}
           >
             <Select
-              options={sectionHeader.data.result.map((item: any) => {
+              options={sectionHeader?.data.result.map((item: any) => {
                 return { value: item._id, label: item.title };
               })}
               placeholder="Please select section header"
