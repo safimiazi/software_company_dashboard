@@ -64,6 +64,7 @@ const Project = () => {
       formData.append("demoUrl", values.demoUrl);
       formData.append("githubUrl", values.githubUrl);
       formData.append("overview", values.overview);
+      formData.append("sectionHeader", values.sectionHeader);
 
       // Handling array fields (technologies, features, challenges, impact)
       values.technologies?.forEach((tech: string, index: number) => {
