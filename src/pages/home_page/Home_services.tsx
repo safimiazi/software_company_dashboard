@@ -59,6 +59,7 @@ const Home_services = () => {
       formData.append("description", values.description);
       formData.append("ctaText", values.ctaText || "");
       formData.append("ctaLink", values.ctaLink || "");
+      formData.append("sectionHeader", values.sectionHeader);
 
       // Image Upload Handling
       if (values.image && values.image.file?.originFileObj) {

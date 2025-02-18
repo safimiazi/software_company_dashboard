@@ -66,6 +66,7 @@ const CaseStudy = () => {
       formData.append("duration", values.duration);
       formData.append("challenge", values.challenge);
       formData.append("solution", values.solution);
+      formData.append("sectionHeader", values.sectionHeader);
 
       values.results?.forEach((result: string, index: number) => {
         formData.append(`results[${index}]`, result);
