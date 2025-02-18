@@ -291,6 +291,7 @@ const CaseStudy = () => {
               options={sectionHeader.data.result.map((item: any) => {
                 return { value: item._id, label: item.title };
               })}
+              placeholder="Please select section header"
             />
           </Form.Item>
 
