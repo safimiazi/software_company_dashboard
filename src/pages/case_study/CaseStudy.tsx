@@ -50,7 +50,6 @@ const CaseStudy = () => {
   });
   const { data: sectionHeader } = useGetsection_headerDataQuery({});
 
-  console.log("sectionHeader", sectionHeader);
   const [case_studyPost, { isLoading: isPostLoading }] =
     useCase_studyPostMutation();
   const [case_studyPut, { isLoading: isEditLoading }] =

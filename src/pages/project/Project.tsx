@@ -14,6 +14,7 @@ import {
   Image,
   notification,
   Upload,
+  Select,
 } from "antd";
 import {
   DeleteOutlined,
@@ -29,6 +30,7 @@ import {
   useProjectPutMutation,
 } from "../../redux/api/adminApi/projectApi/Project.mutarion";
 import { useGetProjectDataQuery } from "../../redux/api/adminApi/projectApi/Project.query";
+import { useGetsection_headerDataQuery } from "../../redux/api/adminApi/sectionHeaderApi/SectionHeader.query";
 
 const { TextArea } = Input;
 
@@ -46,6 +48,8 @@ const Project = () => {
     pageSize: pagination.pageSize,
     search: globalFilter,
   });
+    const { data: sectionHeader } = useGetsection_headerDataQuery({});
+  
   const [projectPost, { isLoading: isPostLoading }] = useProjectPostMutation();
   const [projectPut, { isLoading: isEditLoading }] = useProjectPutMutation();
   const [projectDelete, { isLoading: isDeleteLoading }] =
@@ -268,6 +272,18 @@ const Project = () => {
             rules={[{ required: true, message: "Please enter project title" }]}
           >
             <Input placeholder="Enter project title" />
+          </Form.Item>
+          <Form.Item
+            name="sectionHeader"
+            label="Section Header"
+            rules={[{ required: true, message: "Please enter section header" }]}
+          >
+            <Select
+              options={sectionHeader.data.result.map((item: any) => {
+                return { value: item._id, label: item.title };
+              })}
+              placeholder="Please select section header"
+            />
           </Form.Item>
 
           <Form.Item

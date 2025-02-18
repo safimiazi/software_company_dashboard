@@ -11,6 +11,7 @@ import {
   notification,
   Image,
   Popconfirm,
+  Select,
 } from "antd";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import CustomTable from "../../utils/CustomTable";
@@ -22,6 +23,7 @@ import {
   useServicesPutMutation,
 } from "../../redux/api/adminApi/serviceApi/Service.mutation";
 import { useGetservicesDataQuery } from "../../redux/api/adminApi/serviceApi/Service.query";
+import { useGetsection_headerDataQuery } from "../../redux/api/adminApi/sectionHeaderApi/SectionHeader.query";
 
 const Home_services = () => {
   const [pagination, setPagination] = useState({
@@ -38,6 +40,7 @@ const Home_services = () => {
   useEffect(() => {
     refetch();
   }, [pagination.pageIndex, pagination.pageSize]);
+  const { data: sectionHeader } = useGetsection_headerDataQuery({});
 
   const isDarkMode = false;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -237,6 +240,18 @@ const Home_services = () => {
             rules={[{ required: true, message: "Please enter title" }]}
           >
             <Input />
+          </Form.Item>
+          <Form.Item
+            name="sectionHeader"
+            label="Section Header"
+            rules={[{ required: true, message: "Please enter section header" }]}
+          >
+            <Select
+              options={sectionHeader.data.result.map((item: any) => {
+                return { value: item._id, label: item.title };
+              })}
+              placeholder="Please select section header"
+            />
           </Form.Item>
           <Form.Item name="ctaText" label="CTA Button Text">
             <Input />
