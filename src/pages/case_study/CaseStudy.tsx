@@ -14,6 +14,7 @@ import {
   Image,
   notification,
   Upload,
+  Select,
 } from "antd";
 import {
   DeleteOutlined,
@@ -30,6 +31,7 @@ import {
   useCase_studyPutMutation,
 } from "../../redux/api/adminApi/caseStudyApi/CaseStudy.mutation";
 import { useGetcase_studyDataQuery } from "../../redux/api/adminApi/caseStudyApi/CaseStudy.query";
+import { useGetsection_headerDataQuery } from "../../redux/api/adminApi/sectionHeaderApi/SectionHeader.query";
 
 const { TextArea } = Input;
 
@@ -45,8 +47,10 @@ const CaseStudy = () => {
   const { data: data, refetch } = useGetcase_studyDataQuery({
     pageIndex: pagination.pageIndex,
     pageSize: pagination.pageSize,
-    search: globalFilter,
   });
+  const { data: sectionHeader } = useGetsection_headerDataQuery({});
+
+  console.log("sectionHeader", sectionHeader);
   const [case_studyPost, { isLoading: isPostLoading }] =
     useCase_studyPostMutation();
   const [case_studyPut, { isLoading: isEditLoading }] =
@@ -277,6 +281,17 @@ const CaseStudy = () => {
             rules={[{ required: true, message: "Please enter title" }]}
           >
             <Input placeholder="Enter title" />
+          </Form.Item>
+          <Form.Item
+            name="sectionHeader"
+            label="Section Header"
+            rules={[{ required: true, message: "Please enter section header" }]}
+          >
+            <Select
+              options={sectionHeader.data.result.map((item: any) => {
+                return { value: item._id, label: item.title };
+              })}
+            />
           </Form.Item>
 
           <Form.Item
