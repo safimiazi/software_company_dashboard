@@ -71,13 +71,11 @@ const CaseStudy = () => {
         formData.append(`technologies[${index}]`, tech);
       });
 
-    
-    // Append each field of the testimonial object individually
-    Object.keys(values.testimonial).forEach((key: string) => {
+      // Append each field of the testimonial object individually
+      Object.keys(values.testimonial).forEach((key: string) => {
         formData.append(`testimonial.${key}`, values.testimonial[key]);
       });
 
-      
       // Handling Image Upload
       if (values.image && values.image.file?.originFileObj) {
         formData.append("image", values.image.file.originFileObj);
